@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: cursive;
+}
+
+.wraper {
+    display: flex;
+}
+
+.left-column {
+    width: 40%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.right-column {
+    width: 60%; 
+    padding: 20px; 
+     box-sizing: border-box;
+}
+
+#title{
+    margin-left: 30px;
+}
+#film-list{
+   
+    font-size: 1.2em;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+        row-gap: 20px;
+}
+
+#edit-button{
+margin-left: 30px;
+display: inline-block;
+}
+#titleLink{
+cursor: pointer;
+margin-left: 8px;
+}
+.button {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: rgb(26, 138, 158);
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+}
+#add-film{
+    margin-top: 20px;
+    margin-left: 150px;
+}
+
+#descriptionItem{
+font-size: 1.2em;
+}
+.styled:hover {
+    background-color: rgba(255, 0, 0, 1);
+}
+
+.styled:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.img{
+    max-width: 80px;
+    max-height: auto;
+}
+.edit-form {
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#form-cansel-button{
+    margin-top: 5px;
+}
+
+.fieldset {
+   width: 500px;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+fieldset label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+fieldset label input {
+    font-size: 1rem;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+.modal {
+     display: none;
+     position: fixed;
+     z-index: 1;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     overflow: auto;
+     background-color: rgba(0, 0, 0, 0.4);
+ }
+
+.modal-content {
+     background-color: #fefefe;
+     margin: 15% auto;
+     padding: 20px;
+     border: 1px solid #888;
+     width: 80%;
+     max-width: 600px;
+     text-align: center;
+ }
+
+.modal-buttons {
+     display: flex;
+     justify-content: center;
+     margin-top: 20px;
+ }
+
+.modal-button {
+     margin: 0 10px;
+     padding: 10px 20px;
+     border: none;
+     background-color: #ddd;
+     cursor: pointer;
+     border-radius: 5px;
+ }
+
+.modal-button:hover {
+     background-color: #bbb;
+ }
