@@ -1,4 +1,4 @@
-import films from '/films.js';
+import films from './films.js';
 
 const pFilms = JSON.parse(localStorage.getItem(films)) ?? [...films];
 
