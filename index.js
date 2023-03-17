@@ -144,33 +144,24 @@ function editfilmForm(filmId) {
 
 window.addEventListener("popstate", () => {
     const hash = window.location.hash;
-    if (!idd || !hash || hash !== '#preview' && hash !== '#edit' && hash !== '#add') {
-        window.location.replace('/index.html');
-        return;
-    }
-});
-
-window.onpopstate = function () {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
-    const section = window.location.hash.substr(1);
-    console.log(id);
-    const str = window.location.search;
-    const regex = /id=(\d+)/;
-    const match = str.match(regex);
-    const idd = match ? match[1] : null;
-    console.log(idd);
-
-    if (section === 'preview') {
+    if (!id || !hash || hash !== '#preview' && hash !== '#edit' && hash !== '#add') {
+        window.location.replace('/index.html');
+    }
+    else if (hash === '#preview') {
         renderFilmPreview(id);
-    } else if (section === 'edit') {
+    } else if (hash === '#edit') {
         renderFilmEditForm(id);
-    } else if (section === 'add') {
+    } else if (hash === '#add') {
         renderFilmEditForm(id);
     } else {
         console.error('/index.html');
     }
-}
+
+});
+
+
 
 const modal = document.getElementById("modal");
 const modal2 = document.getElementById("modal2");
