@@ -50,13 +50,11 @@ modalButtons.classList.add('modal-buttons');
 const modalOkButton = document.createElement('button');
 modalOkButton.setAttribute('id', 'modal-ok-button');
 modalOkButton.classList.add('button');
-modalOkButton.classList.add('modal-button');
 modalOkButton.textContent = 'OK';
 
 const modalCancelButton = document.createElement('button');
 modalCancelButton.setAttribute('id', 'modal-cancel-button');
 modalCancelButton.classList.add('button');
-modalCancelButton.classList.add('modal-button');
 modalCancelButton.textContent = 'Cancel';
 
 modalButtons.appendChild(modalOkButton);
@@ -76,7 +74,6 @@ modal2Content.classList.add('modal-content');
 
 const undoChangesText = document.createElement('h2');
 undoChangesText.setAttribute('id', 'undo-changes-text');
-undoChangesText.textContent = 'Changes apply';
 
 const modal2Buttons = document.createElement('div');
 modal2Buttons.classList.add('modal-buttons');
@@ -84,7 +81,6 @@ modal2Buttons.classList.add('modal-buttons');
 const modal2OkButton = document.createElement('button');
 modal2OkButton.setAttribute('id', 'modal-ok-button2');
 modal2OkButton.classList.add('button');
-modal2OkButton.classList.add('modal-button');
 modal2OkButton.textContent = 'OK';
 
 modal2Buttons.appendChild(modal2OkButton);
@@ -93,6 +89,8 @@ modal2Content.appendChild(undoChangesText);
 modal2Content.appendChild(modal2Buttons);
 
 modal2.appendChild(modal2Content);
+root.appendChild(modal);
+root.appendChild(modal2);
 
 function renderFilmList() {
     filmList.innerHTML = "";
@@ -147,6 +145,7 @@ function load() {
 };
 
 load();
+
 
 function renderFilmPreview(filmId) {
     const film = pFilms.find((film) => film.id === filmId);
@@ -222,7 +221,6 @@ function editfilmForm(filmId) {
         filmContainer.appendChild(filmList);
         filmContainer.appendChild(filmList);
         filmContainer.appendChild(addFilmButton);
-        //const undoChangesText = document.getElementById('undo-changes-text');
         undoChangesText.textContent = 'Movie updated successfully';
         showModal(modal2, modal2OkButton);
         previewContainer.innerHTML = '';
@@ -236,7 +234,7 @@ function editfilmForm(filmId) {
 
     btnCancel.addEventListener('click', e => {
         e.preventDefault();
-        history.back();
+        undoChangesText.textContent = 'Changes apply';
         showModal(modal, modalOkButton);
     });
 
@@ -295,3 +293,4 @@ function showModal(modal, button) {
 function hideModal(modal) {
     modal.style.display = "none";
 }
+
