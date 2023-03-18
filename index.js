@@ -2,10 +2,98 @@ import films from './films.js';
 
 const pFilms = JSON.parse(localStorage.getItem(films)) ?? [...films];
 
-const filmContainer = document.getElementById('film-container');
-const filmList = document.getElementById('film-list');
-const previewContainer = document.getElementById('preview-container');
-const addFilmButton = document.getElementById('add-film');
+
+const root = document.getElementById('root');
+console.log(root);
+
+const filmContainer = document.createElement('div');
+filmContainer.setAttribute('id', 'film-container');
+filmContainer.classList.add('left-column');
+
+const title = document.createElement('h1');
+title.setAttribute('id', 'title');
+title.textContent = 'Films list';
+
+const filmList = document.createElement('ul');
+filmList.setAttribute('id', 'film-list');
+
+const addFilmButton = document.createElement('button');
+addFilmButton.setAttribute('id', 'add-film');
+addFilmButton.classList.add('button');
+addFilmButton.textContent = 'Add film';
+
+filmContainer.appendChild(title);
+filmContainer.appendChild(filmList);
+filmContainer.appendChild(addFilmButton);
+
+const previewContainer = document.createElement('div');
+previewContainer.setAttribute('id', 'preview-container');
+previewContainer.classList.add('right-column');
+
+root.appendChild(filmContainer);
+root.appendChild(previewContainer);
+
+const modal = document.createElement('div');
+modal.setAttribute('id', 'modal');
+modal.classList.add('modal');
+
+const modalContent = document.createElement('div');
+modalContent.classList.add('modal-content');
+
+const modalTitle = document.createElement('h2');
+modalTitle.setAttribute('id', '');
+modalTitle.textContent = 'Undo changes?';
+
+const modalButtons = document.createElement('div');
+modalButtons.classList.add('modal-buttons');
+
+const modalOkButton = document.createElement('button');
+modalOkButton.setAttribute('id', 'modal-ok-button');
+modalOkButton.classList.add('button');
+modalOkButton.classList.add('modal-button');
+modalOkButton.textContent = 'OK';
+
+const modalCancelButton = document.createElement('button');
+modalCancelButton.setAttribute('id', 'modal-cancel-button');
+modalCancelButton.classList.add('button');
+modalCancelButton.classList.add('modal-button');
+modalCancelButton.textContent = 'Cancel';
+
+modalButtons.appendChild(modalOkButton);
+modalButtons.appendChild(modalCancelButton);
+
+modalContent.appendChild(modalTitle);
+modalContent.appendChild(modalButtons);
+
+modal.appendChild(modalContent);
+
+const modal2 = document.createElement('div');
+modal2.setAttribute('id', 'modal2');
+modal2.classList.add('modal');
+
+const modal2Content = document.createElement('div');
+modal2Content.classList.add('modal-content');
+
+const undoChangesText = document.createElement('h2');
+undoChangesText.setAttribute('id', 'undo-changes-text');
+undoChangesText.textContent = 'Changes apply';
+
+const modal2Buttons = document.createElement('div');
+modal2Buttons.classList.add('modal-buttons');
+
+const modal2OkButton = document.createElement('button');
+modal2OkButton.setAttribute('id', 'modal-ok-button2');
+modal2OkButton.classList.add('button');
+modal2OkButton.classList.add('modal-button');
+modal2OkButton.textContent = 'OK';
+
+modal2Buttons.appendChild(modal2OkButton);
+
+modal2Content.appendChild(undoChangesText);
+modal2Content.appendChild(modal2Buttons);
+
+modal2.appendChild(modal2Content);
+
 function renderFilmList() {
     filmList.innerHTML = "";
     pFilms.forEach((film) => {
@@ -40,7 +128,25 @@ function renderFilmList() {
     });
 }
 
-renderFilmList();
+function load() {
+    const hash = window.location.hash;
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    if (hash === '#preview') {
+        renderFilmPreview(id);
+        renderFilmList();
+    } else if (hash === '#edit') {
+        renderFilmList();
+        editfilmForm(id);
+    } else if (hash === '#add') {
+        renderFilmList();
+    } else {
+        renderFilmList();
+    }
+};
+
+load();
 
 function renderFilmPreview(filmId) {
     const film = pFilms.find((film) => film.id === filmId);
@@ -140,21 +246,25 @@ function editfilmForm(filmId) {
     return form;
 }
 
-// popstate gets dispatched before hashchange.
+// popstate gets dispatched before hashchange.https://www.codeguage.com/courses/js/events-popstate-event
 
 window.addEventListener("popstate", () => {
+
     const hash = window.location.hash;
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
+
     if (!id || !hash || hash !== '#preview' && hash !== '#edit' && hash !== '#add') {
         window.location.replace('/index.html');
     }
     else if (hash === '#preview') {
         renderFilmPreview(id);
+
     } else if (hash === '#edit') {
-        renderFilmEditForm(id);
+        editfilmForm(id);
+        console.log(id);
     } else if (hash === '#add') {
-        renderFilmEditForm(id);
+
     } else {
         console.error('/index.html');
     }
@@ -162,24 +272,16 @@ window.addEventListener("popstate", () => {
 });
 
 
-
-const modal = document.getElementById("modal");
-const modal2 = document.getElementById("modal2");
-const okButton = document.getElementById("modal-ok-button");
-const okButton2 = document.getElementById("modal-ok-button2");
-const cancelButton = document.getElementById("modal-cancel-button");
-
-
-okButton.addEventListener("click", () => {
+modalOkButton.addEventListener("click", () => {
     history.back();
     showModal(modal2, okButton2);
 });
 
-okButton2.addEventListener("click", () => {
+modal2OkButton.addEventListener("click", () => {
     hideModal(modal2);
 });
 
-cancelButton.addEventListener("click", () => {
+modalCancelButton.addEventListener("click", () => {
     hideModal(modal);
 });
 
