@@ -4,7 +4,7 @@ const pFilms = JSON.parse(localStorage.getItem(films)) ?? [...films];
 
 
 const root = document.getElementById('root');
-console.log(root);
+
 
 const filmContainer = document.createElement('div');
 filmContainer.setAttribute('id', 'film-container');
@@ -41,7 +41,7 @@ const modalContent = document.createElement('div');
 modalContent.classList.add('modal-content');
 
 const modalTitle = document.createElement('h2');
-modalTitle.setAttribute('id', '');
+modalTitle.setAttribute('id', 'modal-title');
 modalTitle.textContent = 'Undo changes?';
 
 const modalButtons = document.createElement('div');
@@ -222,9 +222,9 @@ function editfilmForm(filmId) {
         filmContainer.appendChild(filmList);
         filmContainer.appendChild(filmList);
         filmContainer.appendChild(addFilmButton);
-        const undoChangesText = document.getElementById('undo-changes-text');
+        //const undoChangesText = document.getElementById('undo-changes-text');
         undoChangesText.textContent = 'Movie updated successfully';
-        showModal(modal2, okButton2);
+        showModal(modal2, modal2OkButton);
         previewContainer.innerHTML = '';
     });
 
@@ -237,7 +237,7 @@ function editfilmForm(filmId) {
     btnCancel.addEventListener('click', e => {
         e.preventDefault();
         history.back();
-        showModal(modal, okButton);
+        showModal(modal, modalOkButton);
     });
 
     form.append(fieldset, saveButton, btnCancel);
@@ -274,7 +274,7 @@ window.addEventListener("popstate", () => {
 
 modalOkButton.addEventListener("click", () => {
     history.back();
-    showModal(modal2, okButton2);
+    showModal(modal2, modal2OkButton);
 });
 
 modal2OkButton.addEventListener("click", () => {
