@@ -123,6 +123,8 @@ function renderFilmList() {
 
     addFilmButton.addEventListener("click", () => {
         history.pushState({ film: newId }, '', `/filmStorage/index.html#add `);
+        addMovieForm(1);
+
     });
 }
 
@@ -234,7 +236,7 @@ function editfilmForm(filmId) {
 
     btnCancel.addEventListener('click', e => {
         e.preventDefault();
-        undoChangesText.textContent = 'Changes apply';
+        undoChangesText.textContent = 'Changes canceled';
         showModal(modal, modalOkButton);
     });
 
@@ -294,3 +296,74 @@ function hideModal(modal) {
     modal.style.display = "none";
 }
 
+function addMovieForm(id) {
+    const form = document.createElement('form');
+    form.classList.add('add-form');
+
+    const fieldset = document.createElement('fieldset');
+    fieldset.classList.add('fieldset');
+
+    const labelTitle = document.createElement('label');
+    labelTitle.textContent = 'movie title: ';
+    const inputTitle = document.createElement('input');
+    inputTitle.required = true;
+    inputTitle.placeholder = 'Enter movie title here';
+    labelTitle.append(inputTitle);
+
+    const labelCategory = document.createElement('label');
+    labelCategory.textContent = 'movie category: ';
+    const inputCategory = document.createElement('input');
+    inputCategory.required = true;
+    inputCategory.placeholder = 'Enter movie category here';
+    labelCategory.append(inputCategory);
+
+    const labelImgURL = document.createElement('label');
+    labelImgURL.textContent = 'movie image URL: ';
+    const inputImgURL = document.createElement('input');
+    inputImgURL.required = true;
+    inputImgURL.placeholder = 'Enter movie image URL here: '
+    labelImgURL.append(inputImgURL);
+
+    const labelDescription = document.createElement('label');
+    labelDescription.textContent = 'movie description: ';
+    const inputDescription = document.createElement('textarea');
+    inputDescription.required = true;
+    inputDescription.placeholder = 'Enter movie description here: '
+    labelDescription.append(inputDescription);
+
+    fieldset.append(labelTitle, labelCategory, labelImgURL, labelDescription);
+
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'save';
+    saveButton.classList.add('button');
+
+    saveButton.addEventListener('click', e => {
+        e.preventDefault();
+        const newMovie = {
+            id,
+            title: inputTitle.value,
+            category: inputCategory.value,
+            imageUrl: inputImgURL.value,
+            plot: inputDescription.value,
+        };
+        pFilms.push(newMovie);
+        localStorage.setItem('films', JSON.stringify(films));
+        undoChangesText.textContent = 'Movie saved successfully';
+        showModal(modal2, modal2OkButton);
+        renderFilmList(id);
+    });
+
+    const btnCancel = document.createElement('button');
+    btnCancel.textContent = 'cancel';
+    btnCancel.classList.add('button');
+
+    btnCancel.addEventListener('click', e => {
+        e.preventDefault();
+        undoChangesText.textContent = 'Changes canceled';
+        showModal(modal, modalOkButton);
+    });
+
+    form.append(fieldset, saveButton, btnCancel);
+    previewContainer.innerHTML = '';
+    previewContainer.append(form);
+}
