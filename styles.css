@@ -74,7 +74,8 @@ font-size: 1.2em;
     max-width: 80px;
     max-height: auto;
 }
-.edit-form {
+.edit-form
+.add-form {
     width: 600px;
     margin: 0 auto;
     display: flex;
