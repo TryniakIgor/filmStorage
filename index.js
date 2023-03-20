@@ -119,9 +119,9 @@ function renderFilmList() {
         filmList.appendChild(listItem);
     })
 
-    const newId = Math.floor(Math.random() * 100);
+
     addFilmButton.addEventListener("click", () => {
-        history.pushState({ film: newId }, '', `/filmStorage/index.html#add `);
+        history.pushState({ z: 3 }, '', `/filmStorage/index.html#add `);
         addMovieForm();
     });
 }
@@ -337,18 +337,20 @@ function addMovieForm() {
 
     saveButton.addEventListener('click', e => {
         e.preventDefault();
+        const newId = Math.floor(Math.random() * 100);
+        console.log(newId);
         const newMovie = {
-            id,
+            id: newId,
             title: inputTitle.value,
             category: inputCategory.value,
             imageUrl: inputImgURL.value,
             plot: inputDescription.value,
         };
         pFilms.push(newMovie);
-        localStorage.setItem('films', JSON.stringify(films));
+        localStorage.setItem('films', JSON.stringify(pFilms));
         undoChangesText.textContent = 'Movie saved successfully';
         showModal(modal2, modal2OkButton);
-        renderFilmList(id);
+        renderFilmList();
     });
 
     const btnCancel = document.createElement('button');
