@@ -253,7 +253,7 @@ window.addEventListener("popstate", () => {
     const id = params.get('id');
 
     if (!id || !hash || hash !== '#preview' && hash !== '#edit' && hash !== '#add') {
-        window.location.replace('/filmStorage//index.html');
+        window.location.replace('/filmStorage/index.html');
     }
     else if (hash === '#preview') {
         renderFilmPreview(id);
