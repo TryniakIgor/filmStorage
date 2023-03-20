@@ -122,7 +122,7 @@ function renderFilmList() {
     const newId = Math.floor(Math.random() * 100);
 
     addFilmButton.addEventListener("click", () => {
-        history.pushState({ film: newId }, '', `/index.html#add `);
+        history.pushState({ film: newId }, '', `/filmStorage/index.html#add `);
     });
 }
 
@@ -176,7 +176,7 @@ function renderFilmPreview(filmId) {
 }
 
 function editfilmForm(filmId) {
-    history.pushState({ x: 2 }, '', `/index.html?id=${filmId}#edit `);
+    history.pushState({ x: 2 }, '', `/filmStorage/index.html?id=${filmId}#edit `);
     console.log('form');
     const filmItem = pFilms.find((film) => film.id === filmId);
 
@@ -207,7 +207,7 @@ function editfilmForm(filmId) {
 
     saveButton.addEventListener('click', e => {
         e.preventDefault();
-        history.pushState({ y: 1 }, '', `?id=${filmId}#preview`);
+        history.pushState({ y: 1 }, '', `/filmStorage/index.html?id=${filmId}#preview`);
         filmItem.title = inputTitle.value;
         filmItem.category = inputCategory.value;
         filmItem.imageUrl = inputImgURL.value;
@@ -253,7 +253,7 @@ window.addEventListener("popstate", () => {
     const id = params.get('id');
 
     if (!id || !hash || hash !== '#preview' && hash !== '#edit' && hash !== '#add') {
-        window.location.replace('/index.html');
+        window.location.replace('/filmStorage//index.html');
     }
     else if (hash === '#preview') {
         renderFilmPreview(id);
@@ -264,7 +264,7 @@ window.addEventListener("popstate", () => {
     } else if (hash === '#add') {
 
     } else {
-        console.error('/index.html');
+        console.error('/filmStorage/index.html');
     }
 
 });
