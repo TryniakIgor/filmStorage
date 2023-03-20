@@ -120,11 +120,9 @@ function renderFilmList() {
     })
 
     const newId = Math.floor(Math.random() * 100);
-
     addFilmButton.addEventListener("click", () => {
         history.pushState({ film: newId }, '', `/filmStorage/index.html#add `);
-        addMovieForm(1);
-
+        addMovieForm();
     });
 }
 
@@ -264,7 +262,7 @@ window.addEventListener("popstate", () => {
         editfilmForm(id);
         console.log(id);
     } else if (hash === '#add') {
-
+        addMovieForm();
     } else {
         console.error('/filmStorage/index.html');
     }
@@ -296,7 +294,7 @@ function hideModal(modal) {
     modal.style.display = "none";
 }
 
-function addMovieForm(id) {
+function addMovieForm() {
     const form = document.createElement('form');
     form.classList.add('add-form');
 
